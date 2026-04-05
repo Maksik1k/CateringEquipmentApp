@@ -1,0 +1,366 @@
+<Window x:Class="CateringEquipmentApp.Views.EquipmentCardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Карточка оборудования"
+        Icon="{StaticResource KitchenCareIcon}"
+        Width="1480"
+        Height="980"
+        MinWidth="1260"
+        MinHeight="860"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource AppWindowBackgroundBrush}">
+    <Window.Resources>
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="CanUserResizeRows" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="AlternatingRowBackground" Value="{DynamicResource AppTableAltRowBrush}"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="MinRowHeight" Value="44"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="#E8EEF4"/>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{DynamicResource AppTableHeaderBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="BorderBrush" Value="#E8EEF4"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <Style x:Key="MetricCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="24"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="22,20"/>
+            <Setter Property="Margin" Value="0,0,16,16"/>
+        </Style>
+
+        <Style x:Key="SectionCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="28"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="28"/>
+            <Setter Property="Margin" Value="0,0,0,18"/>
+        </Style>
+
+        <Style x:Key="SectionSubtitleStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,8,0,18"/>
+            <Setter Property="Foreground" Value="{DynamicResource AppTextSecondaryBrush}"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="18">
+        <Border Background="{DynamicResource AppSurfaceAltBrush}"
+                CornerRadius="34"
+                BorderBrush="{DynamicResource AppCardBorderBrush}"
+                BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="30">
+                    <Border Style="{StaticResource SectionCardStyle}"
+                            Background="#F7FBFF">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="300"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Margin="0,0,24,0">
+                                <TextBlock Text="Главный экран оборудования"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           FontSize="15"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock x:Name="TitleText"
+                                           Margin="0,10,0,10"
+                                           FontSize="40"
+                                           FontWeight="Bold"
+                                           FontFamily="Bahnschrift"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Text="Полная карточка объекта с историей эксплуатации, заявками, ремонтами, заменами и санитарной обработкой."
+                                           Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                           FontSize="17"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <Border Grid.Column="1"
+                                    Background="White"
+                                    BorderBrush="{DynamicResource AppCardBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="24"
+                                    Padding="22">
+                                <StackPanel>
+                                    <TextBlock Text="Сводка по объекту"
+                                               Foreground="{DynamicResource AppTextMutedBrush}"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"/>
+                                    <TextBlock x:Name="StateText"
+                                               Margin="0,12,0,6"
+                                               FontSize="26"
+                                               FontWeight="Bold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                               TextWrapping="Wrap"/>
+                                    <TextBlock Text="Текущее состояние оборудования"
+                                               Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                               FontSize="14"/>
+                                    <Separator Margin="0,16,0,16" Background="{DynamicResource AppCardBorderBrush}"/>
+                                    <TextBlock Text="Инвентарный номер"
+                                               Foreground="{DynamicResource AppTextMutedBrush}"
+                                               FontSize="13"/>
+                                    <TextBlock x:Name="InventoryText"
+                                               Margin="0,6,0,14"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                                    <TextBlock Text="Ответственный сотрудник"
+                                               Foreground="{DynamicResource AppTextMutedBrush}"
+                                               FontSize="13"/>
+                                    <TextBlock x:Name="ResponsibleText"
+                                               Margin="0,6,0,0"
+                                               FontSize="17"
+                                               FontWeight="SemiBold"
+                                               Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                               TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <UniformGrid Columns="4" Margin="0,0,0,8">
+                        <Border Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Модель"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           FontSize="14"/>
+                                <TextBlock x:Name="ModelText"
+                                           Margin="0,10,0,0"
+                                           FontWeight="SemiBold"
+                                           FontSize="20"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Тип"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           FontSize="14"/>
+                                <TextBlock x:Name="TypeText"
+                                           Margin="0,10,0,0"
+                                           FontWeight="SemiBold"
+                                           FontSize="20"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Место установки"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           FontSize="14"/>
+                                <TextBlock x:Name="LocationText"
+                                           Margin="0,10,0,0"
+                                           FontWeight="SemiBold"
+                                           FontSize="20"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource MetricCardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="Открытые заявки"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           FontSize="14"/>
+                                <TextBlock x:Name="OpenRequestsText"
+                                           Margin="0,10,0,0"
+                                           FontWeight="Bold"
+                                           FontSize="28"
+                                           Foreground="#D7962C"/>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+
+                    <UniformGrid Columns="2" Margin="0,0,0,8">
+                        <Border Style="{StaticResource MetricCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Затраты на обслуживание"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           FontSize="14"/>
+                                <TextBlock x:Name="ServiceCostText"
+                                           Margin="0,10,0,0"
+                                           FontWeight="Bold"
+                                           FontSize="28"
+                                           Foreground="#0B6E99"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource MetricCardStyle}" Margin="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="Контроль объекта"
+                                           Foreground="{DynamicResource AppTextMutedBrush}"
+                                           FontSize="14"/>
+                                <TextBlock Text="Ремонты, замены, обслуживание и санитарная обработка в одном окне."
+                                           Margin="0,10,0,0"
+                                           FontWeight="SemiBold"
+                                           FontSize="18"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+
+                    <Border Style="{StaticResource SectionCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="История эксплуатации"
+                                       FontSize="30"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                            <TextBlock Text="Все события, осмотры и изменения по выбранному оборудованию."
+                                       Style="{StaticResource SectionSubtitleStyle}"/>
+                            <DataGrid x:Name="HistoryGrid"
+                                      AutoGenerateColumns="True"
+                                      IsReadOnly="True"
+                                      RowHeaderWidth="0"
+                                      MaxHeight="260"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Grid Margin="0,0,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0"
+                                Style="{StaticResource SectionCardStyle}"
+                                Margin="0,0,10,18">
+                            <StackPanel>
+                                <TextBlock Text="Заявки на ремонт"
+                                           FontSize="28"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                                <TextBlock Text="Обращения по неисправностям и состоянию оборудования."
+                                           Style="{StaticResource SectionSubtitleStyle}"/>
+                                <DataGrid x:Name="RequestsGrid"
+                                          AutoGenerateColumns="True"
+                                          IsReadOnly="True"
+                                          RowHeaderWidth="0"
+                                          MaxHeight="250"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1"
+                                Style="{StaticResource SectionCardStyle}"
+                                Margin="10,0,0,18">
+                            <StackPanel>
+                                <TextBlock Text="Ремонты"
+                                           FontSize="28"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                                <TextBlock Text="Выполненные ремонтные работы, тип ремонта и итоговое состояние."
+                                           Style="{StaticResource SectionSubtitleStyle}"/>
+                                <DataGrid x:Name="RepairsGrid"
+                                          AutoGenerateColumns="True"
+                                          IsReadOnly="True"
+                                          RowHeaderWidth="0"
+                                          MaxHeight="250"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0"
+                                Style="{StaticResource SectionCardStyle}"
+                                Margin="0,0,10,18">
+                            <StackPanel>
+                                <TextBlock Text="Замены"
+                                           FontSize="28"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                                <TextBlock Text="Информация о заменённых элементах, причинах и стоимости работ."
+                                           Style="{StaticResource SectionSubtitleStyle}"/>
+                                <DataGrid x:Name="ReplacementsGrid"
+                                          AutoGenerateColumns="True"
+                                          IsReadOnly="True"
+                                          RowHeaderWidth="0"
+                                          MaxHeight="250"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1"
+                                Style="{StaticResource SectionCardStyle}"
+                                Margin="10,0,0,18">
+                            <StackPanel>
+                                <TextBlock Text="Плановое обслуживание"
+                                           FontSize="28"
+                                           FontWeight="Bold"
+                                           Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                                <TextBlock Text="График профилактики, выполненные работы и текущий статус обслуживания."
+                                           Style="{StaticResource SectionSubtitleStyle}"/>
+                                <DataGrid x:Name="MaintenanceGrid"
+                                          AutoGenerateColumns="True"
+                                          IsReadOnly="True"
+                                          RowHeaderWidth="0"
+                                          MaxHeight="250"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Border Style="{StaticResource SectionCardStyle}" Margin="0">
+                        <StackPanel>
+                            <TextBlock Text="Санитарная обработка"
+                                       FontSize="30"
+                                       FontWeight="Bold"
+                                       Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                            <TextBlock Text="Журнал санитарных процедур, используемых средств и отметок о выполнении."
+                                       Style="{StaticResource SectionSubtitleStyle}"/>
+                            <DataGrid x:Name="SanitationGrid"
+                                      AutoGenerateColumns="True"
+                                      IsReadOnly="True"
+                                      RowHeaderWidth="0"
+                                      MaxHeight="260"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

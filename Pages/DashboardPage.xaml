@@ -1,0 +1,77 @@
+<Page x:Class="CateringEquipmentApp.Pages.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <WrapPanel>
+                <Border Style="{StaticResource CardStyle}" Width="240">
+                    <StackPanel>
+                        <TextBlock Text="Единиц оборудования" Foreground="#587183"/>
+                        <TextBlock x:Name="EquipmentCountText" FontSize="32" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="#102B3F" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Width="240">
+                    <StackPanel>
+                        <TextBlock Text="Открытых заявок" Foreground="#587183"/>
+                        <TextBlock x:Name="OpenRequestsCountText" FontSize="32" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="#102B3F" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Width="240">
+                    <StackPanel>
+                        <TextBlock Text="Ремонтов" Foreground="#587183"/>
+                        <TextBlock x:Name="RepairsCountText" FontSize="32" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="#102B3F" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Width="240">
+                    <StackPanel>
+                        <TextBlock Text="Замен" Foreground="#587183"/>
+                        <TextBlock x:Name="ReplacementsCountText" FontSize="32" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="#102B3F" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Width="240">
+                    <StackPanel>
+                        <TextBlock Text="Санитарных процедур" Foreground="#587183"/>
+                        <TextBlock x:Name="SanitationCountText" FontSize="32" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="#102B3F" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource CardStyle}" Width="240">
+                    <StackPanel>
+                        <TextBlock Text="Обращений" Foreground="#587183"/>
+                        <TextBlock x:Name="AppealsCountText" FontSize="32" FontWeight="Bold" FontFamily="Bahnschrift" Foreground="#102B3F" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.3*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource CardStyle}" Margin="0,0,18,18">
+                    <StackPanel>
+                        <TextBlock Text="Рабочее пространство" FontSize="22" FontWeight="SemiBold" FontFamily="Bahnschrift" Foreground="#17344A"/>
+                        <TextBlock Text="Приложение разделено на отдельные страницы. Слева находится навигация, а доступные действия на страницах зависят от роли пользователя."
+                                   TextWrapping="Wrap"
+                                   Margin="0,12,0,0"
+                                   Foreground="#445C6D"
+                                   FontSize="15"/>
+                        <TextBlock Text="Права распределены по типам: просмотр, добавление, редактирование и назначение. Это позволяет показывать каждому сотруднику только нужные функции."
+                                   TextWrapping="Wrap"
+                                   Margin="0,12,0,0"
+                                   Foreground="#445C6D"
+                                   FontSize="15"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Текущий пользователь" FontSize="22" FontWeight="SemiBold" FontFamily="Bahnschrift" Foreground="#17344A"/>
+                        <TextBlock x:Name="SessionInfoText" Margin="0,12,0,0" Foreground="#445C6D" FontSize="15" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

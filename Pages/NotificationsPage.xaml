@@ -1,0 +1,163 @@
+<Page x:Class="CateringEquipmentApp.Pages.NotificationsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="DataGrid">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="GridLinesVisibility" Value="None"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="RowHeaderWidth" Value="0"/>
+                <Setter Property="CanUserAddRows" Value="False"/>
+                <Setter Property="CanUserDeleteRows" Value="False"/>
+                <Setter Property="CanUserResizeRows" Value="False"/>
+                <Setter Property="SelectionMode" Value="Single"/>
+                <Setter Property="SelectionUnit" Value="FullRow"/>
+                <Setter Property="AlternatingRowBackground" Value="{DynamicResource AppTableAltRowBrush}"/>
+                <Setter Property="RowBackground" Value="White"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="{DynamicResource AppTableHeaderBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Padding" Value="14,12"/>
+                <Setter Property="Height" Value="46"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            </Style>
+
+            <Style TargetType="DataGridCell">
+                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="BorderBrush" Value="#E8EEF4"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource AppTableSelectedBrush}"/>
+                        <Setter Property="Foreground" Value="#0F4360"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="DataGridRow">
+                <Setter Property="MinHeight" Value="42"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource AppTableHoverBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,18">
+            <Grid>
+                <StackPanel>
+                    <TextBlock Text="Контроль сроков"
+                               Foreground="{DynamicResource AppTextMutedBrush}"
+                               FontSize="13"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="Уведомления и просрочки"
+                               Margin="0,8,0,0"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               FontFamily="Bahnschrift"
+                               Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                    <TextBlock Text="Система показывает ближайшие и просроченные ремонты, а также плановое обслуживание оборудования."
+                               Margin="0,10,0,0"
+                               Foreground="{DynamicResource AppTextSecondaryBrush}"
+                               FontSize="15"
+                               TextWrapping="Wrap"/>
+                    <WrapPanel Margin="0,16,0,0">
+                        <Border Background="#FDEAE7" CornerRadius="14" Padding="12,6" Margin="0,0,10,0">
+                            <TextBlock x:Name="CriticalCountText" Text="Просроченных: 0" Foreground="#A33B32" FontWeight="SemiBold"/>
+                        </Border>
+                        <Border Background="#FFF4DF" CornerRadius="14" Padding="12,6">
+                            <TextBlock x:Name="UpcomingCountText" Text="Ближайших: 0" Foreground="#8A5A08" FontWeight="SemiBold"/>
+                        </Border>
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Margin="0,0,0,14">
+                    <Border Background="#E8F3FA"
+                            CornerRadius="14"
+                            Padding="12,6"
+                            DockPanel.Dock="Left">
+                        <TextBlock Text="Список актуальных уведомлений"
+                                   Foreground="#1C5573"
+                                   FontWeight="SemiBold"/>
+                    </Border>
+                </DockPanel>
+
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="NotificationsGrid"
+                              AutoGenerateColumns="True"
+                              IsReadOnly="True"
+                              RowHeaderWidth="0"/>
+
+                    <Border x:Name="EmptyStatePanel"
+                            Background="#FAFCFE"
+                            CornerRadius="22"
+                            BorderBrush="{DynamicResource AppCardBorderBrush}"
+                            BorderThickness="1"
+                            Padding="28"
+                            Visibility="Collapsed">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="58"
+                                    Height="58"
+                                    CornerRadius="18"
+                                    Background="#E8F3FA"
+                                    HorizontalAlignment="Center">
+                                <Image Source="{StaticResource NotificationIcon}" Width="26" Height="26" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Сейчас всё под контролем"
+                                       Margin="0,14,0,0"
+                                       FontSize="21"
+                                       FontWeight="SemiBold"
+                                       FontFamily="Bahnschrift"
+                                       Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="Просроченных или ближайших событий сейчас нет."
+                                       Margin="0,10,0,0"
+                                       FontSize="14"
+                                       Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="420"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

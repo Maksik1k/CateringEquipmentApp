@@ -1,0 +1,170 @@
+<Page x:Class="CateringEquipmentApp.Pages.ActionLogPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="Transparent">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="DataGrid">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="GridLinesVisibility" Value="None"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="RowHeaderWidth" Value="0"/>
+                <Setter Property="CanUserAddRows" Value="False"/>
+                <Setter Property="CanUserDeleteRows" Value="False"/>
+                <Setter Property="CanUserResizeRows" Value="False"/>
+                <Setter Property="SelectionMode" Value="Single"/>
+                <Setter Property="SelectionUnit" Value="FullRow"/>
+                <Setter Property="AlternatingRowBackground" Value="{DynamicResource AppTableAltRowBrush}"/>
+                <Setter Property="RowBackground" Value="White"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="{DynamicResource AppTableHeaderBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Padding" Value="14,12"/>
+                <Setter Property="Height" Value="46"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource AppCardBorderBrush}"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            </Style>
+
+            <Style TargetType="DataGridCell">
+                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="BorderBrush" Value="#E8EEF4"/>
+                <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                <Setter Property="Foreground" Value="{DynamicResource AppTextPrimaryBrush}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="DataGridCell">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource AppTableSelectedBrush}"/>
+                        <Setter Property="Foreground" Value="#0F4360"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="DataGridRow">
+                <Setter Property="MinHeight" Value="42"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource AppTableHoverBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Style="{StaticResource CardStyle}" Margin="0,0,0,18">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="Контроль активности"
+                               Foreground="{DynamicResource AppTextMutedBrush}"
+                               FontSize="13"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="Журнал действий пользователей"
+                               Margin="0,8,0,0"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               FontFamily="Bahnschrift"
+                               Foreground="{DynamicResource AppTextPrimaryBrush}"/>
+                    <TextBlock Text="Здесь сохраняются входы в систему, изменения записей, удаления, назначения и открытие ключевых экранов."
+                               Margin="0,10,0,0"
+                               Foreground="{DynamicResource AppTextSecondaryBrush}"
+                               FontSize="15"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+
+                <Border Grid.Column="1"
+                        Background="#E8F3FA"
+                        CornerRadius="16"
+                        Padding="14,10"
+                        VerticalAlignment="Top">
+                    <TextBlock Text="История действий в реальном времени"
+                               Foreground="#1C5573"
+                               FontWeight="SemiBold"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Margin="0,0,0,14">
+                    <Border Background="#EFF7E8"
+                            CornerRadius="14"
+                            Padding="12,6"
+                            DockPanel.Dock="Left">
+                        <TextBlock Text="Последние действия пользователей"
+                                   Foreground="#3C6B28"
+                                   FontWeight="SemiBold"/>
+                    </Border>
+                </DockPanel>
+
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="LogGrid"
+                              AutoGenerateColumns="True"
+                              IsReadOnly="True"
+                              RowHeaderWidth="0"/>
+
+                    <Border x:Name="EmptyStatePanel"
+                            Background="#FAFCFE"
+                            CornerRadius="22"
+                            BorderBrush="{DynamicResource AppCardBorderBrush}"
+                            BorderThickness="1"
+                            Padding="28"
+                            Visibility="Collapsed">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Border Width="58"
+                                    Height="58"
+                                    CornerRadius="18"
+                                    Background="#EFF7E8"
+                                    HorizontalAlignment="Center">
+                                <Image Source="{StaticResource LogIcon}" Width="26" Height="26" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Журнал действий пока пуст"
+                                       Margin="0,14,0,0"
+                                       FontSize="21"
+                                       FontWeight="SemiBold"
+                                       FontFamily="Bahnschrift"
+                                       Foreground="{DynamicResource AppTextPrimaryBrush}"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="После входов в систему и изменений записей история появится здесь."
+                                       Margin="0,10,0,0"
+                                       FontSize="14"
+                                       Foreground="{DynamicResource AppTextSecondaryBrush}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="420"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
